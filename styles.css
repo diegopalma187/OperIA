@@ -1,0 +1,656 @@
+/* =========================================================
+   1. RESET Y VARIABLES GLOBALES
+   (Reinicia los estilos por defecto del navegador para 
+   que la página se vea igual en Chrome, Safari, Edge, etc.)
+========================================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+}
+
+html {
+    scroll-behavior: smooth; /* Hace que la página se deslice suavemente al hacer clic en el menú */
+    scroll-padding-top: 100px; /* Evita que el menú fijo tape los títulos al deslizarse */
+}
+
+body {
+    background-color: #0A0F1C; /* Color de fondo principal (Azul muy oscuro) */
+    color: #e0e0e0; /* Color de texto general (Gris claro) */
+    line-height: 1.6; /* Espaciado entre líneas para mejor lectura */
+    padding-top: 80px; /* Empuja el contenido hacia abajo para que el menú no lo cubra */
+}
+
+/* Contenedor que centra y limita el ancho máximo del contenido */
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+
+/* =========================================================
+   2. NAVEGACIÓN Y HEADER (MENÚ SUPERIOR)
+========================================================= */
+nav {
+    position: fixed; /* Mantiene el menú pegado arriba al hacer scroll */
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.98); /* Fondo blanco casi sólido */
+    backdrop-filter: blur(10px); /* Efecto difuminado moderno */
+    z-index: 1000; /* Asegura que el menú esté siempre por encima de lo demás */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    transition: all 0.3s ease;
+}
+
+.logo img {
+    width: 100%;
+    height: auto;
+    max-height: 90px;
+    object-fit: contain;
+    display: block;
+}
+
+/* Enlaces del menú versión Escritorio */
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+}
+
+.nav-links {
+    display: flex;
+    gap: 3rem;
+    font-weight: 800;
+    color: #344054;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.2s;
+}
+
+.nav-links a:hover {
+    color: #2EC4B6; /* Cambia a color Aqua al pasar el mouse */
+}
+
+/* Botón Hamburguesa (Oculto en Computadoras, visible en Celulares) */
+.hamburger {
+    display: none; 
+    flex-direction: column;
+    cursor: pointer;
+    gap: 6px;
+    z-index: 1001; 
+    background: transparent;
+    border: none;
+    padding: 5px;
+}
+
+.hamburger span {
+    width: 30px;
+    height: 3px;
+    background-color: #2EC4B6;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out; /* Animación suave al hacer clic */
+}
+
+
+/* =========================================================
+   3. BOTONES GLOBALES
+========================================================= */
+/* Botón secundario (El del menú: Contáctanos) */
+.btn-outline {
+    border: 2px solid #2EC4B6;
+    background: transparent;
+    color: #2EC4B6;
+    padding: 0.6rem 1.5rem;
+    border-radius: 30px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    white-space: nowrap;
+    display: inline-block;
+}
+
+.btn-outline:hover {
+    background-color: #2EC4B6;
+    color: white;
+}
+
+/* Botón principal sólido (Ej. Agendar diagnóstico) */
+.btn-primary {
+    background: #2EC4B6;
+    border: none;
+    color: white;
+    font-weight: 700;
+    font-size: 1.2rem;
+    padding: 1rem 3rem;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(46, 196, 182, 0.4);
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: inline-block;
+    position: relative; 
+    z-index: 2;
+}
+
+.btn-primary:hover {
+    background: #25a396; /* Color más oscuro al pasar el mouse */
+    transform: translateY(-2px); /* Se levanta un poquito */
+    box-shadow: 0 6px 20px rgba(46, 196, 182, 0.6);
+}
+
+.btn-primary:active {
+    transform: translateY(2px); /* Efecto de presionado */
+    box-shadow: none;
+}
+
+/* Variación grande del botón para el final de la página */
+.btn-contact-large {
+    font-size: 1.5rem;
+    padding: 1rem 4rem;
+}
+
+
+/* =========================================================
+   4. SECCIÓN PRINCIPAL (HERO / INICIO)
+========================================================= */
+.hero {
+    padding: 6rem 2rem 4rem;
+    text-align: center;
+    position: relative; 
+    overflow: hidden; 
+    min-height: 80vh; /* Ocupa al menos el 80% de la pantalla inicial */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* El video de fondo */
+.back-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; 
+    object-fit: cover; /* Cubre toda el área sin estirarse raro */
+    opacity: 0.3; /* Hace que el video sea oscuro para que se lea el texto */
+}
+
+/* Caja que contiene los textos sobre el video */
+.hero-content {
+    z-index: 1; 
+    position: relative;
+    background: linear-gradient(rgba(10, 15, 28, 0.6), rgba(10, 15, 28, 0.8)); /* Capa semitransparente oscura */
+    padding: 3rem 2rem;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 1280px; 
+}
+
+/* Los 4 puntos de beneficio (Eficiencia, Seguridad...) */
+.hero-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.hero-item {
+    background: rgba(46, 196, 182, 0.2); 
+    padding: 0.8rem 1.5rem;
+    border-radius: 60px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    border: 1px solid rgba(46, 196, 182, 0.5);
+    color: #2EC4B6;
+    backdrop-filter: blur(5px); 
+}
+
+/* Título principal H1 */
+.hero h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 2;
+    max-width: 950px;
+    margin: 0 auto 1.5rem;
+    background: linear-gradient(to right, #ffffff, #a3accc); /* Color metálico/plateado */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero p {
+    font-size: 1.3rem;
+    color: #e0e0e0;
+    max-width: 700px;
+    margin: 0 auto 3rem;
+}
+
+
+/* =========================================================
+   5. SECCIONES GENERALES Y TARJETAS BÁSICAS (SERVICIOS)
+========================================================= */
+.section {
+    padding: 5rem 2rem;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-align: center;
+    color: #ffffff;
+}
+
+.section-sub {
+    text-align: center;
+    color: #8892b0;
+    font-size: 1.2rem;
+    max-width: 750px;
+    margin: 0 auto 4rem;
+}
+
+/* Grid automático: Acomoda las tarjetas según el ancho de la pantalla */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2rem;
+}
+
+/* Tarjetas individuales */
+.card {
+    background: #112240; /* Azul fuerte oscuro */
+    border: 1px solid #233554;
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-10px); /* Flotan al pasar el mouse */
+    box-shadow: 0 10px 30px -15px rgba(46, 196, 182, 0.4);
+    border-color: #2EC4B6;
+}
+
+.card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    color: #e6f1ff;
+}
+
+.card p {
+    color: #8892b0;
+    font-size: 1rem;
+}
+
+
+/* =========================================================
+   6. TARJETAS DE PLANES Y PRECIOS
+========================================================= */
+.pricing-card {
+    background: #112240;
+    border: 1px solid #233554;
+    border-radius: 20px;
+    padding: 3rem 2rem;
+    transition: transform 0.3s;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+}
+
+.pricing-card.featured {
+    background: linear-gradient(180deg, #112240 0%, #0A0F1C 100%);
+    border-color: #2EC4B6;
+    transform: scale(1.02); /* Las hace un poquito más grandes por defecto */
+}
+
+.pricing-card.featured:hover {
+    transform: scale(1.04) translateY(-5px);
+    box-shadow: 0 15px 35px -15px rgba(46, 196, 182, 0.3);
+}
+
+.pricing-card h3 {
+    font-size: 1.3rem;
+    color: #e6f1ff;
+    margin-bottom: 0.5rem;
+}
+
+.pricing-card .price {
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: #2EC4B6;
+    margin-bottom: 2rem;
+}
+
+
+/* =========================================================
+   7. DISEÑO DE VIÑETAS PERSONALIZADAS (ELIMINAR PUNTOS BLANCOS)
+========================================================= */
+/* Quita los puntos y el margen a las listas */
+.feature-list-check, 
+.feature-list-star {
+    list-style-type: none !important; 
+    padding-left: 0 !important;
+    margin-top: 1.5rem;
+    color: #8892b0;
+}
+
+.feature-list-check li, 
+.feature-list-star li {
+    position: relative;
+    padding-left: 1.5rem; /* Da espacio a la izquierda para acomodar el ícono nuevo */
+    margin-bottom: 0.8rem;
+    font-size: 0.95rem;
+    display: block;
+    text-align: left;
+}
+
+/* Opción A: Lista con palomita (Usada en la sección Planes) */
+.feature-list-check li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #2EC4B6;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+/* Opción B: Lista con asterisco (Usada en Servicios y Blog) */
+.feature-list-star li::before {
+    content: "*";
+    position: absolute;
+    left: 0;
+    top: 2px;
+    color: #2EC4B6;
+    font-weight: 900;
+    font-size: 1.3rem;
+    line-height: 1;
+}
+
+
+/* =========================================================
+   8. EQUIPO DIRECTIVO (ESTILO CYBERPUNK/TECH NEÓN)
+========================================================= */
+.team-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 3rem;
+    margin-top: 3rem;
+}
+
+.team-card.tech-style {
+    background: #112240;
+    border: 1px solid #233554;
+    border-radius: 20px;
+    padding: 3.5rem 2rem 3rem;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+}
+
+/* Resplandor externo de la tarjeta al hacer hover */
+.team-card.tech-style:hover {
+    transform: translateY(-10px);
+    border-color: #2EC4B6; 
+    box-shadow: 0 20px 40px -15px rgba(46, 196, 182, 0.2); 
+}
+
+/* Círculo que enmarca la foto del equipo */
+.team-avatar-image {
+    width: 130px; 
+    height: 130px;
+    margin: 0 auto 2.5rem auto; 
+    border-radius: 50%; 
+    background: #112240; 
+    border: 3px solid #233554; 
+    overflow: hidden; 
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* La imagen física */
+.avatar-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    border-radius: 50%;
+    display: block;
+    transition: transform 0.4s ease; 
+}
+
+/* Efecto Luz Neón en el círculo de la foto al hacer hover */
+.team-card.tech-style:hover .team-avatar-image {
+    border-color: #2EC4B6; 
+    box-shadow: 0 0 30px rgba(46, 196, 182, 0.8), 
+                0 0 10px rgba(46, 196, 182, 0.5);
+}
+
+.team-card.tech-style:hover .avatar-photo {
+    transform: scale(1.05); /* Pequeño zoom a la cara */
+}
+
+/* Textos de las tarjetas de equipo */
+.team-card h3 { font-size: 1.5rem; color: #e6f1ff; margin-bottom: 0.5rem; }
+.team-role { font-size: 0.9rem; font-weight: 700; color: #2EC4B6; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 1px; }
+.team-bio { color: #8892b0; font-size: 0.95rem; margin-bottom: 1.8rem; line-height: 1.6; }
+
+/* Etiquetas de Habilidades Tecnológicas (Skills) */
+.team-skills {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem;
+    margin-top: 1.5rem; 
+    padding: 0 0.5rem;
+}
+
+.skill-tag {
+    background: rgba(46, 196, 182, 0.06); 
+    border: 1px solid rgba(46, 196, 182, 0.25); 
+    color: #2EC4B6; 
+    font-size: 0.8rem;
+    font-weight: 400;
+    padding: 0.4rem 0.9rem;
+    border-radius: 20px; 
+    letter-spacing: 0.5px;
+    text-transform: uppercase; 
+    transition: all 0.3s ease;
+}
+
+.team-card.tech-style:hover .skill-tag {
+    background: rgba(46, 196, 182, 0.15);
+    border-color: #2EC4B6;
+}
+
+
+/* =========================================================
+   9. SECCIÓN BLOG (CUADRÍCULA 2x2)
+========================================================= */
+.steps {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Crea exactamente 2 columnas */
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.step {
+    background: #112240;
+    border: 1px solid #233554;
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
+    text-align: left;
+    transition: all 0.3s ease;
+}
+
+.step:hover {
+    border-color: #2EC4B6;
+    transform: translateY(-5px); 
+    box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
+}
+
+
+/* =========================================================
+   10. SECCIÓN FINAL: CONTACTO Y FOOTER
+========================================================= */
+.contact-section {
+    background: linear-gradient(180deg, #112240 0%, #0A0F1C 100%);
+    border-radius: 60px 60px 0 0; /* Bordes redondeados superiores */
+    padding: 6rem 2rem;
+    text-align: center;
+    margin-top: 4rem;
+    border-top: 1px solid #233554;
+}
+
+.contact-title {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 1.5rem;
+}
+
+.contact-benefits {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Fuerza exactamente 2 columnas */
+    gap: 1.5rem 3rem; /* Espacio vertical y horizontal entre los elementos */
+    max-width: 900px; /* Evita que se estiren demasiado en pantallas grandes */
+    margin: 3rem auto; /* Centra todo el bloque en la pantalla */
+    color: #8892b0;
+    font-weight: 500;
+    text-align: left; /* Alinea el texto a la izquierda para mayor limpieza */
+}
+
+.benefit-item {
+    display: flex;
+    align-items: flex-start; /* Mantiene la palomita arriba si el texto ocupa 2 renglones */
+    gap: 12px;
+}
+
+.benefit-item .check {
+    font-size: 1.2rem;
+    line-height: 1.4; 
+}
+
+.benefit-item span:last-child {
+    line-height: 1.4;
+}
+.footer {
+    text-align: center;
+    padding: 2rem;
+    color: #a0a0a0;
+    background-color: #0A0F1C;
+    border-top: 1px solid #1c2333;
+    font-size: 0.95rem;
+}
+
+
+/* =========================================================
+   11. MEDIA QUERIES (DISEÑO RESPONSIVE PARA DISPOSITIVOS)
+========================================================= */
+
+/* Tablets y pantallas medianas (Menos de 950px) */
+@media (max-width: 950px) {
+    .navbar { padding: 1rem 2rem; }
+    
+    /* Mostrar botón hamburguesa */
+    .hamburger { display: flex; }
+
+    /* Esconder menú normal y prepararlo para deslizarse desde arriba */
+    .nav-menu {
+        position: fixed;
+        top: -150%; 
+        left: 0;
+        width: 100%;
+        background-color: #ffffff;
+        flex-direction: column;
+        padding: 3rem 2rem;
+        gap: 2rem;
+        box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        transition: top 0.4s ease-in-out;
+        z-index: 1000;
+    }
+
+    /* Clase que el JavaScript añade para mostrar el menú */
+    .nav-menu.active { top: 75px; }
+
+    .nav-links {
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: center;
+        width: 100%;
+    }
+
+    .btn-outline {
+        width: 100%;
+        text-align: center;
+        max-width: 300px;
+    }
+
+    /* Animación: Transforma las 3 rayitas en una "X" */
+    .hamburger.active span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+
+    .hero { padding: 3rem 1rem; min-height: auto; }
+    .hero h1 { font-size: 3rem; }
+    .pricing-card.featured { transform: scale(1); }
+    .pricing-card.featured:hover { transform: translateY(-5px); }
+}
+
+/* Teléfonos móviles estándar (Menos de 768px) */
+@media (max-width: 768px) {
+    .container { padding: 0 1.5rem; }
+    .hero h1 { font-size: 2.2rem; }
+    .hero p { font-size: 1.1rem; }
+    .hero-grid { gap: 1rem; }
+    .hero-item { font-size: 0.9rem; padding: 0.6rem 1.2rem; }
+    
+    .section { padding: 4rem 0; }
+    .section-title { font-size: 2rem; }
+    
+    /* Todas las tarjetas pasan a ser de 1 sola columna en vertical */
+    .cards-grid { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr; }
+    
+    .pricing-card { padding: 2.5rem 1.5rem; }
+    .team-grid { gap: 2rem; }
+    .team-card.tech-style { padding: 2.5rem 1.5rem; }
+    
+    .contact-section { padding: 4rem 1rem; border-radius: 40px 40px 0 0; }
+    .contact-title { font-size: 2rem; }
+    .contact-benefits { flex-direction: column; align-items: center; gap: 1rem; }
+    
+    /* Botones más grandes para ser fáciles de tocar con el dedo */
+    .btn-primary {
+        font-size: 1.1rem !important;
+        padding: 0.8rem 1.5rem !important;
+        width: 100%; 
+        max-width: 350px;
+        text-align: center;
+    }
+}
+
+/* Teléfonos muy pequeños (Menos de 480px, ej. iPhone SE) */
+@media (max-width: 480px) {
+    .hero h1 { font-size: 1.8rem; }
+    .logo img { max-height: 60px; } /* Achicamos el logo para que quepa bien junto al menú */
+    .nav-menu.active { top: 65px; }
+}
